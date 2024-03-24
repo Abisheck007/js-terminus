@@ -1,26 +1,10 @@
-//this code is for object(here we use curly bracss! and here namma relational depandencies use panikalam)
 
-let abi = {
-    name: "ABISHeCK",
-    age: 24,
-    gender: "male",
-    
-    siblings: {
-        bro: "aju",
-        sis:"anu"
-    }
-}
 
-abi.siblings.bro="akash"
 
-abi.age=21
+// temperary operator
 
-console.log(abi.siblings.bro);
-console.log(abi.age);
+let age = 21
 
-// this code is for array creation
+let abi = age > 18 ? "your male" : "your chlid"
 
-let san = [ "aju","Anu","deeks"]
-
-console.log(san[1]);
-console.log(san.length)
+console.log(abi)
