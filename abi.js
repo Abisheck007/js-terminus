@@ -1,10 +1,5 @@
+// using js in-build functions
 
+var abi = new Date();
 
-
-// temperary operator
-
-let age = 21
-
-let abi = age > 18 ? "your male" : "your chlid"
-
-console.log(abi)
+console.log(abi);
