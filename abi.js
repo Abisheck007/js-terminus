@@ -2,4 +2,4 @@
 
 var abi = new Date();
 
-console.log(abi);
+console.log(abi.getHours());
