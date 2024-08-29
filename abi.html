@@ -1,44 +1,47 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated Attendance Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>QR Code Scanner</title>
+    <a href="admin.html">Admin login
+    </a>
+    <script src="node.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="features.html">Features</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section class="banner">
-            <h1>Automated Attendance Management System</h1>
-            <p>Simplify Classroom Attendance Management</p>
-            <a href="features.html" class="cta">Learn More</a>
-        </section>
-
-        <section class="intro">
-            <h2>Welcome to Our System</h2>
-            <p>Manage your classroom attendance with ease and accuracy.</p>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Attendance Management System. All rights reserved.</p>
-        <div class="social-links">
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">LinkedIn</a>
-        </div>
-    </footer>
+    <h1>Scan QR Code for Attendance</h1>
+    <video id="preview"></video>
+    <script src="https://unpkg.com/instascan@1.0.0"></script>
+    <script>
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+            fetch('/attendance', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId: content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+        });
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function (e) {
+            console.error(e);
+        });
+    </script>
 </body>
 </html>

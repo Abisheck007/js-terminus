@@ -1,0 +1,57 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance Dashboard</h1>
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically -->
+        </tbody>
+    </table>
+    <script>
+        fetch('/attendance')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#attendanceTable tbody');
+            data.forEach(record => {
+                const row = document.createElement('tr');
+                const studentIdCell = document.createElement('td');
+                studentIdCell.textContent = record.studentId;
+                const dateCell = document.createElement('td');
+                dateCell.textContent = new Date(record.date).toLocaleString();
+                row.appendChild(studentIdCell);
+                row.appendChild(dateCell);
+                tableBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
